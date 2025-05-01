@@ -22,7 +22,7 @@ The following table lists Business Partner Numbers (BPNs) associated with differ
 - Java - Spring boot
 - ReactJs
 - WebSocket
-- [EDC - 0.7.7](https://github.com/eclipse-tractusx/tractusx-edc)
+- [EDC - 0.9.0](https://github.com/eclipse-tractusx/tractusx-edc)
 - [SSI Dim Wallet stub - 0.0.4](https://github.com/eclipse-tractusx/ssi-dim-wallet-stub)
 - Hashicorp Vault
 - Docker and Docker compose for local deployment using docker compose
