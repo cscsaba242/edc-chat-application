@@ -56,6 +56,13 @@ includes multiple components working together for real-time messaging and data t
     - Communicates with the UI application.
 - **Setup**: A separate backend application is deployed for each EDC instance.
 
+**NOTE:**
+ 
+- When the backend application starts, it will create the Asset with id `edc-chat-app`, Policy, and Contract Definition. Please refer `EDCService.initializePreEdcProcess()` for more details
+- However, if the assetId as an `edc-chat-app` is already in the edc database, it’ll skip this process.
+- Policy is created to check `Membership` credential of  participant. Each participate needs to present `Membership` credential to start data negotiation.
+
+
 ### **UI Application**
 
 - **Purpose**: Provides a WebSocket-enabled interface for real-time chat.
@@ -72,9 +79,11 @@ includes multiple components working together for real-time messaging and data t
 
 ### **Steps to Deploy**
 
+*Note: below steps are tested with `Docker version 27.3.1`*
+
 1. Run the following command to start the deployment:
    ```bash
-   docker-compose up --build
+   docker compose up --build
 
 2. After the deployment the stack will look like below:
    ![img.png](../docs/images/deployment/deployment-stack.png)
@@ -102,7 +111,7 @@ includes multiple components working together for real-time messaging and data t
     4. catena-x-ui
 2. After commenting this, use the below commands which will deploy the Edc and it's relevant services.
    ```bash
-   docker-compose up -d
+   docker compose up -d
 
 ---
 
@@ -112,10 +121,10 @@ includes multiple components working together for real-time messaging and data t
 1. remove the `postgres_data` folder from the root path of the code.
 2. Once removal is done, execute the below command.
     ```bash
-   docker-compose down -v
+   docker compose down -v
 3. After removing the data and all, we will run the whole stack again with below command.
     ```bash
-   docker-compose up -d
+   docker compose up -d
 
 ---
 
@@ -123,6 +132,9 @@ includes multiple components working together for real-time messaging and data t
 
 The **wallet-stub** service is currently deployed in our shared environment
 at:[wallet-stub](https://wallet.learn.smartsenselabs.com/ui/swagger-ui/index.html).
+
+- Make sure your wallet is created in [Wallet stub application](https://wallet.learn.smartsenselabs.com/ui/swagger-ui/index.html) if you are changing or register new BPNs before starting data transfer/chat.
+- You can create wallets just by calling ``https://wallet.learn.smartsenselabs.com/yourBPN/did.json`` URL in the browser.
 
 If you want to deploy the wallet-stub service in your local environment, follow these steps:
 
@@ -132,4 +144,4 @@ If you want to deploy the wallet-stub service in your local environment, follow 
 4. Expose port `80` with ngrok and update the above host with the ngrok url.
 5. Run the Docker Compose command to start the services:
    ```bash
-   docker-compose up -d
+   docker compose up -d
