@@ -8,7 +8,7 @@ version: "3.8"
 services:
   # PostgreSQL database service
   postgres:
-    image: postgres:latest
+    image: postgres:16
     container_name: postgres_multi_db
     environment:
       # Database credentials and configuration
@@ -28,8 +28,9 @@ services:
 
   # Sender Control Plane service
   smartsense-controlplane:
-    image: tractusx/edc-controlplane-postgresql-hashicorp-vault:0.7.7
+    image: tractusx/edc-controlplane-postgresql-hashicorp-vault:0.9.0
     container_name: smartsense-controlplane
+    command: [ "--log-level=DEBUG" ]
     ports:
       # Expose Control Plane ports
       - "8191:8191"
@@ -39,14 +40,16 @@ services:
     volumes:
       # Mount configuration file
       - ./deployment/env/smartsense/edc.properties:/app/configuration.properties
+      - ./deployment/env/smartsense/opentelemetry.properties:/app/opentelemetry.properties
     environment:
       # Specify the configuration file location
       - CONFIGURATION_PROPERTIES_FILE=/app/configuration.properties
+      - OPENTELEMETRY_PROPERTIES_FILE=/app/opentelemetry.properties
     depends_on:
       postgres:
         condition: service_started
-      smartsense-edc-migration:
-        condition: service_completed_successfully
+    #      smartsense-edc-migration:
+    #        condition: service_completed_successfully
     #      wallet-stub:
     #        condition: service_healthy
     networks:
@@ -60,22 +63,25 @@ services:
 
   # Sender Data Plane service
   smartsense-dataplane:
-    image: tractusx/edc-dataplane-hashicorp-vault:0.7.7
+    image: tractusx/edc-dataplane-hashicorp-vault:0.9.0
     container_name: smartsense-dataplane
+    command: [ "--log-level=DEBUG" ]
     ports:
       # Expose Data Plane port
       - "8196:8193"
     volumes:
       # Mount configuration file
       - ./deployment/env/smartsense/dataplane.properties:/app/configuration.properties
+      - ./deployment/env/smartsense/opentelemetry.properties:/app/opentelemetry.properties
     environment:
       # Specify the configuration file location
       - CONFIGURATION_PROPERTIES_FILE=/app/configuration.properties
+      - OPENTELEMETRY_PROPERTIES_FILE=/app/opentelemetry.properties
     depends_on:
       postgres:
         condition: service_started
-      smartsense-edc-migration:
-        condition: service_completed_successfully
+      #      smartsense-edc-migration:
+      #        condition: service_completed_successfully
       #      wallet-stub:
       #        condition: service_healthy
       smartsense-controlplane:
@@ -85,8 +91,9 @@ services:
 
   # Receiver Control Plane service
   catena-x-controlplane:
-    image: tractusx/edc-controlplane-postgresql-hashicorp-vault:0.7.7
+    image: tractusx/edc-controlplane-postgresql-hashicorp-vault:0.9.0
     container_name: catena-x-controlplane
+    command: [ "--log-level=DEBUG" ]
     ports:
       # Expose Control Plane ports
       - "9191:9191"
@@ -96,14 +103,16 @@ services:
     volumes:
       # Mount configuration file
       - ./deployment/env/catena-x/edc.properties:/app/configuration.properties
+      - ./deployment/env/catena-x/opentelemetry.properties:/app/opentelemetry.properties
     environment:
       # Specify the configuration file location
       - CONFIGURATION_PROPERTIES_FILE=/app/configuration.properties
+      - OPENTELEMETRY_PROPERTIES_FILE=/app/opentelemetry.properties
     depends_on:
       postgres:
         condition: service_started
-      catena-x-edc-migration:
-        condition: service_completed_successfully
+    #      catena-x-edc-migration:
+    #        condition: service_completed_successfully
     #      wallet-stub:
     #        condition: service_healthy
     networks:
@@ -117,22 +126,25 @@ services:
 
   # Receiver Data Plane service
   catena-x-dataplane:
-    image: tractusx/edc-dataplane-hashicorp-vault:0.7.7
+    image: tractusx/edc-dataplane-hashicorp-vault:0.9.0
     container_name: catena-x-dataplane
+    command: [ "--log-level=DEBUG" ]
     ports:
       # Expose Data Plane port
       - "9196:8196"
     volumes:
       # Mount configuration file
       - ./deployment/env/catena-x/dataplane.properties:/app/configuration.properties
+      - ./deployment/env/catena-x/opentelemetry.properties:/app/opentelemetry.properties
     environment:
       # Specify the configuration file location
       - CONFIGURATION_PROPERTIES_FILE=/app/configuration.properties
+      - OPENTELEMETRY_PROPERTIES_FILE=/app/opentelemetry.properties
     depends_on:
       postgres:
         condition: service_started
-      catena-x-edc-migration:
-        condition: service_completed_successfully
+      #      catena-x-edc-migration:
+      #        condition: service_completed_successfully
       #      wallet-stub:
       #        condition: service_started
       catena-x-controlplane:
@@ -295,29 +307,30 @@ services:
     networks:
       - edc-network
 
-  smartsense-edc-migration:
-    image: flyway/flyway:latest
-    container_name: smartsense-edc-migration
-    command: -url=jdbc:postgresql://postgres:5432/smartsense-edc -schemas=public -user=root -password=root  -connectRetries=10 migrate
-    volumes:
-      - ./deployment/env/postgres/migration.sql:/flyway/sql/V0_0_1_0__create_tables.sql
-    depends_on:
-      postgres:
-        condition: service_started
-    networks:
-      - edc-network
-
-  catena-x-edc-migration:
-    image: flyway/flyway:latest
-    container_name: catena-x-edc-migration
-    command: -url=jdbc:postgresql://postgres:5432/catena-x-edc -schemas=public -user=root -password=root  -connectRetries=10 migrate
-    volumes:
-      - ./deployment/env/postgres/migration.sql:/flyway/sql/V0_0_1_0__create_tables.sql
-    depends_on:
-      postgres:
-        condition: service_started
-    networks:
-      - edc-network
+# Manual DB migration is not needed with the latest version of Tractus-x EDC.
+#  smartsense-edc-migration:
+#    image: flyway/flyway:latest
+#    container_name: smartsense-edc-migration
+#    command: -url=jdbc:postgresql://postgres:5432/smartsense-edc -schemas=public -user=root -password=root  -connectRetries=10 migrate
+#    volumes:
+#      - ./deployment/env/postgres/migration.sql:/flyway/sql/V0_0_1_0__create_tables.sql
+#    depends_on:
+#      postgres:
+#        condition: service_started
+#    networks:
+#      - edc-network
+#
+#  catena-x-edc-migration:
+#    image: flyway/flyway:latest
+#    container_name: catena-x-edc-migration
+#    command: -url=jdbc:postgresql://postgres:5432/catena-x-edc -schemas=public -user=root -password=root  -connectRetries=10 migrate
+#    volumes:
+#      - ./deployment/env/postgres/migration.sql:/flyway/sql/V0_0_1_0__create_tables.sql
+#    depends_on:
+#      postgres:
+#        condition: service_started
+#    networks:
+#      - edc-network
 
 # Define custom network for inter-service communication
 networks:

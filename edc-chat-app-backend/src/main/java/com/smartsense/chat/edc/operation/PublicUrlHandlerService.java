@@ -10,13 +10,12 @@ import com.smartsense.chat.edc.client.EDCConnectorClient;
 import com.smartsense.chat.edc.settings.AppConfig;
 import com.smartsense.chat.service.ChatMessageService;
 import com.smartsense.chat.utils.request.ChatRequest;
-
-import java.net.URI;
-import java.util.Map;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import java.net.URI;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -35,7 +34,7 @@ public class PublicUrlHandlerService {
             log.info("Auth code and public url response -> {}", response);
 
             // Retrieve public path and authorization code
-            String publicPath = response.get("tx-auth:refreshEndpoint").toString();
+            String publicPath = response.get("endpoint").toString();
             String authorization = response.get("authorization").toString();
 
             // Call the public path with authorization code
