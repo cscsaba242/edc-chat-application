@@ -8,7 +8,9 @@ version: "3.8"
 services:
   # PostgreSQL database service
   postgres:
-    image: postgres:16
+    build:
+      context: .
+      dockerfile: Dockerfile.postgres
     container_name: postgres_multi_db
     environment:
       # Database credentials and configuration
