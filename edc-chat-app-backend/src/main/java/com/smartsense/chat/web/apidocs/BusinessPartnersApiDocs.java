@@ -28,7 +28,7 @@ public class BusinessPartnersApiDocs {
                                    {
                                         "name": "smartSense",
                                         "bpn": "BPNL00SMARTSENSE",
-                                        "edcUrl": "http://localhost:8090"
+                                        "edcUrl": "https://legendary-meme-jjj5gpvr57c54g5-8090.app.github.dev"
                                     }
                             """, description = "Register new business partner", name = "Register new business partner")
             })
@@ -41,7 +41,7 @@ public class BusinessPartnersApiDocs {
                                         "id": "89221248-4c98-4d8e-a909-d31f3ea0fa8f",
                                         "name": "smartSense",
                                         "bpn": "BPNL00SMARTSENSE",
-                                        "edcUrl": "http://localhost:8090"
+                                        "edcUrl": "https://legendary-meme-jjj5gpvr57c54g5-8090.app.github.dev"
                                     }
                                     """)
                     })
@@ -90,9 +90,9 @@ public class BusinessPartnersApiDocs {
                             @ExampleObject(name = "Get EDC configuration", value = """
                                     {
                                          "bpn": "BPNL000000000001",
-                                         "assetUrl": "http://localhost:9192",
+                                         "assetUrl": "https://legendary-meme-jjj5gpvr57c54g5-9192.app.github.dev",
                                          "edc": {
-                                           "edcUrl": "http://localhost:9192",
+                                           "edcUrl": "https://legendary-meme-jjj5gpvr57c54g5-9192.app.github.dev",
                                            "authCode": "password",
                                            "assetId": "edc-chat-app"
                                          }
