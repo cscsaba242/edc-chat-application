@@ -165,7 +165,7 @@ Compose can now delegate builds to bake for better performance.
 #44 [smartsense-ui build 4/6] RUN npm install
 #44 CACHED
 
-#45 [smartsense-ui build 6/6] RUN REACT_APP_API_BASE_URL=http://localhost:8182 REACT_APP_WEBSOCKET_URL=ws://localhost:8182  npm run build
+#45 [smartsense-ui build 6/6] RUN REACT_APP_API_BASE_URL=http://localhost:8182 REACT_APP_WEBSOCKET_URL=wss://localhost:8182  npm run build
 #45 CACHED
 
 #46 [smartsense-ui build 5/6] COPY ./edc-chat-app-ui/ .
@@ -199,7 +199,7 @@ Compose can now delegate builds to bake for better performance.
 #54 [catena-x-ui build 2/6] WORKDIR /app
 #54 CACHED
 
-#55 [catena-x-ui build 6/6] RUN REACT_APP_API_BASE_URL=http://localhost:8181 REACT_APP_WEBSOCKET_URL=ws://localhost:8181  npm run build
+#55 [catena-x-ui build 6/6] RUN REACT_APP_API_BASE_URL=http://localhost:8181 REACT_APP_WEBSOCKET_URL=wss://localhost:8181  npm run build
 #55 CACHED
 
 #56 [catena-x-ui stage-1 2/2] COPY --from=build /app/build /usr/share/nginx/html
@@ -313,7 +313,8 @@ smartsense-controlplane  | [0;34mDEBUG 2025-05-03T18:24:14.400160259 Config val
 smartsense-controlplane  | [0;34mDEBUG 2025-05-03T18:24:14.401166418 Config value: no setting found for 'edc.http.client.send.buffer.size', falling back to default value '0'[0m
 smartsense-controlplane  | [0;34mDEBUG 2025-05-03T18:24:14.40194428 Config value: no setting found for 'edc.http.client.receive.buffer.size', falling back to default value '0'[0m
 smartsense-controlplane  | [0;34mDEBUG 2025-05-03T18:24:14.403593526 Initialized Core Default Services[0m
-[Kvault-prepopulate exited with code 0
+
+[Kvault-prepopulate exited with code 0
 catena-x-controlplane    | [0;32mINFO 2025-05-03T18:24:14.932695466 HTTPS enforcement it not enabled, please enable it in a production environment[0m
 smartsense-controlplane  | [0;32mINFO 2025-05-03T18:24:15.011136753 HTTPS enforcement it not enabled, please enable it in a production environment[0m
 catena-x-controlplane    | [0;32mINFO 2025-05-03T18:24:15.506979768 HTTPS enforcement it not enabled, please enable it in a production environment[0m
@@ -1984,7 +1985,8 @@ smartsense-backend       | 2025-05-03T18:25:55.652Z ERROR 1 --- [EDC based chat 
 catena-x-backend         | 2025-05-03T18:25:55.736Z  INFO 1 --- [EDC based chat application] [omcat-handler-1] c.s.chat.service.BusinessPartnerService  : Business partner request: BusinessPartnerRequest[name=smartSense, bpn=BPNL00SMARTSENSE, edcUrl=http://smartsense-controlplane:8195/api/v1/dsp]
 catena-x-backend         | 2025-05-03T18:25:55.921Z ERROR 1 --- [EDC based chat application] [omcat-handler-1] c.s.chat.service.BusinessPartnerService  : BusinessPartner with BPN 'BPNL00SMARTSENSE' already exists.
 bp-registration          | {"type":"about:blank","title":"BusinessPartner with BPN 'BPNL00000CATENAX' already exists.","status":409,"detail":"BusinessPartner with BPN 'BPNL00000CATENAX' already exists.","instance":"/partners","properties":{"timestamp":1746296755654}}{"type":"about:blank","title":"BusinessPartner with BPN 'BPNL00SMARTSENSE' already exists.","status":409,"detail":"BusinessPartner with BPN 'BPNL00SMARTSENSE' already exists.","instance":"/partners","properties":{"timestamp":1746296755924}}Completed the BP Registration...
-[Kbp-registration exited with code 0
+
+[Kbp-registration exited with code 0
 smartsense-ui            | /docker-entrypoint.sh: /docker-entrypoint.d/ is not empty, will attempt to perform configuration
 smartsense-ui            | /docker-entrypoint.sh: Looking for shell scripts in /docker-entrypoint.d/
 smartsense-ui            | /docker-entrypoint.sh: Launching /docker-entrypoint.d/10-listen-on-ipv6-by-default.sh

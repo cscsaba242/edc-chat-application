@@ -17,7 +17,7 @@ RUN npm install
 COPY ./edc-chat-app-ui/ .
 
 # Build the React application for production
-RUN REACT_APP_API_BASE_URL=https://legendary-meme-jjj5gpvr57c54g5-8181.app.github.dev REACT_APP_WEBSOCKET_URL=ws://legendary-meme-jjj5gpvr57c54g5-8181.app.github.dev  npm run build
+RUN REACT_APP_API_BASE_URL=https://legendary-meme-jjj5gpvr57c54g5-8181.app.github.dev REACT_APP_WEBSOCKET_URL=wss://legendary-meme-jjj5gpvr57c54g5-8181.app.github.dev  npm run build
 
 # Stage 2: Serve the application using nginx (non-root)
 FROM nginx:alpine
