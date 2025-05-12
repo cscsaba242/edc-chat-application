@@ -27,7 +27,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
-//@CrossOrigin(origins = "https://legendary-meme-jjj5gpvr57c54g5-8180.app.github.dev")
 @RestController
 @Slf4j
 @RequiredArgsConstructor

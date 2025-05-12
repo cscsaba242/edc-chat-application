@@ -11,7 +11,7 @@ note left
 {
     "name":"Company A",
     "bpn":"BPNL000000000000",
-    "edcUrl":"https://legendary-meme-jjj5gpvr57c54g5-8195.app.github.dev/api/v1/dsp"
+    "edcUrl":"http://localhost:8195/api/v1/dsp"
 }
 end note
 s_be -> s_db : store information

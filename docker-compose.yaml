@@ -39,6 +39,9 @@ services:
       - "8192:8192"
       - "8194:8194"
       - "8195:8195"
+    dns:
+      - 10.232.127.10
+      - 10.33.255.23
     volumes:
       # Mount configuration file
       - ./deployment/env/smartsense/edc.properties:/app/configuration.properties
@@ -119,6 +122,10 @@ services:
     #        condition: service_healthy
     networks:
       - edc-network
+    dns:
+      - 10.232.127.10
+      - 10.33.255.23
+
     healthcheck:
       test: wget --no-verbose --tries=1 --spider http://catena-x-controlplane:9191/api/check/health || exit 1
       interval: 40s
@@ -258,6 +265,9 @@ services:
         condition: service_healthy
     ports:
       - "8181:8080"
+    dns:
+      - 10.232.127.10
+      - 10.33.255.23
     networks:
       - edc-network
     healthcheck:

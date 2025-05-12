@@ -1,0 +1,67 @@
+@startuml
+object postgres_multi_db {
+"5432"
+}
+
+object smartsense_controlplane {
+edc-controlplane-postgresql-hashicorp-vault
+"8191:8191"
+"8192:8192"
+"8194:8194"
+"8195:8195"
+}
+
+object smartsense_backend {
+"8182:8080"
+}
+
+object smartsense_dataplane {
+edc-dataplane-hashicorp-vault
+"8196:8193"
+}
+
+object catena_x_controlplane {
+edc-controlplane-postgresql-hashicorp-vault
+"9191:9191"
+"9192:9192"
+"9194:9194"
+"9195:9195"
+}
+
+object catena_x_dataplane {
+edc-dataplane-hashicorp-vault
+"9196:8196"
+}
+
+object vault {
+(vault:1.13.3)
+"8200:8200"
+}
+
+object catena_x_backend {
+"8181:8080"
+}
+
+object bp_registration {
+alpine/curl
+}
+
+object smartsense_ui {
+"8180:80"
+}
+
+object catena_x_ui {
+"8280:80"
+}
+
+smartsense_controlplane --> smartsense_backend
+smartsense_dataplane --> smartsense_controlplane
+catena_x_controlplane --> catena_x_backend
+bp_registration --> smartsense_backend
+bp_registration --> catena_x_backend
+smartsense_ui --> bp_registration
+smartsense_ui --> smartsense_backend
+catena_x_ui --> bp_registration
+catena_x_ui --> catena_x_backend
+
+@enduml

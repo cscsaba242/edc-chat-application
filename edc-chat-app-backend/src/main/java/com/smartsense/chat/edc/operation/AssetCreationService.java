@@ -25,7 +25,7 @@ public class AssetCreationService {
 
     private final EDCConnectorClient edc;
     private final AppConfig config;
-    @Value("${spring.application.host:https://legendary-meme-jjj5gpvr57c54g5-8080.app.github.dev}")
+    @Value("${spring.application.host:http://localhost:8080}")
     private String host;
 
 

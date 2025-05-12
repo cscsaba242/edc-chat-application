@@ -7,7 +7,7 @@ RUN gradle clean build -i -x test -x javadoc
 FROM eclipse-temurin:21-jre-alpine
 LABEL maintainer="smartSense"
 COPY --from=build /home/app/build/libs/edc-chat-backend-latest.jar /usr/local/lib/backend/app.jar
-RUN apk update && apk upgrade libssl3 libcrypto3
+#RUN apk update && apk upgrade libssl3 libcrypto3
 RUN addgroup -S adapter && adduser -S adapter -G adapter
 USER adapter
 WORKDIR /usr/local/lib/backend

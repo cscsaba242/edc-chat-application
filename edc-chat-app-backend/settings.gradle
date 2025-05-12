@@ -1,5 +1,8 @@
-/*
- * Copyright (c)  2024 smartSense Consulting Solutions Pvt. Ltd.
- */
-
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        mavenCentral()
+        google() // optional, depending on your plugins
+    }
+}
 rootProject.name = 'edc-chat-app-backend'

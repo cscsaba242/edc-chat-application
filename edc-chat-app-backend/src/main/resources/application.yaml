@@ -23,7 +23,7 @@ chat:
 spring:
   application:
     name: ${chat.name}
-    host: ${APP_HOST_URL:https://legendary-meme-jjj5gpvr57c54g5-8082.app.github.dev}
+    host: ${APP_HOST_URL:http://localhost:8082}
   threads:
     virtual:
       enabled: true

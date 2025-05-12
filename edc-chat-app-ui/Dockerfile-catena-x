@@ -11,13 +11,13 @@ WORKDIR /app
 COPY ./edc-chat-app-ui/package*.json ./
 
 # Install dependencies
-RUN npm install
+#RUN npm install
 
 # Copy the rest of the application files
 COPY ./edc-chat-app-ui/ .
 
 # Build the React application for production
-RUN REACT_APP_API_BASE_URL=https://legendary-meme-jjj5gpvr57c54g5-8181.app.github.dev REACT_APP_WEBSOCKET_URL=wss://legendary-meme-jjj5gpvr57c54g5-8181.app.github.dev  npm run build
+RUN REACT_APP_API_BASE_URL=http://localhost:8181 REACT_APP_WEBSOCKET_URL=ws://localhost:8181  npm run build
 
 # Stage 2: Serve the application using nginx (non-root)
 FROM nginx:alpine
