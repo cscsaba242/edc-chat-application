@@ -28,10 +28,6 @@ function App() {
                     </Routes>
                 </div>
                 <div className="footer">
-                    <span>Developed By:</span>{" "}
-                    <a href="https://smartsensesolutions.com/" target="_blank">
-                        <img src={"/smartSense-logo.svg"} width={"300"} height={"100"} />
-                    </a>
                 </div>
             </div>
         </Router>
