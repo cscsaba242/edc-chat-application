@@ -4,8 +4,22 @@
 # This setup includes PostgreSQL, EDC control planes, data planes, backend application and UI for sender and receiver,
 # HashiCorp Vault and wallet stub service for operator company(Trusted issuer)
 
-version: "3.8"
 services:
+  mitmproxy:
+    image: mitmproxy/mitmproxy
+    container_name: mitmproxy
+    ports:
+      - "8088:8088"   # HTTP Proxy port
+      - "8081:8081"   # Web UI (optional)
+    #command: mitmweb --web_password 111 --web_host 127.0.0.0 --web_port 8087 --listen_port 8088 -s /home/mitmproxy/.mitmproxy/forward_spec_url.py
+    command: mitmweb --web-host 0.0.0.0 --web-port 8081 --listen-port 8088 --set web_password='mitm' -s /home/mitmproxy/.mitmproxy/forward_spec_url.py
+    volumes:
+      - ./mitmproxy:/home/mitmproxy/.mitmproxy
+    cap_add:
+      - NET_ADMIN
+    networks:
+      - edc-network
+
   # PostgreSQL database service
   postgres:
     build:
@@ -24,7 +38,7 @@ services:
       - ./deployment/env/postgres/create_database.sh:/docker-entrypoint-initdb.d/create_databases.sh
     ports:
       - "5434:5432"
-    restart: no
+    restart: "no"
     networks:
       - edc-network
 
@@ -50,6 +64,8 @@ services:
       # Specify the configuration file location
       - CONFIGURATION_PROPERTIES_FILE=/app/configuration.properties
       - OPENTELEMETRY_PROPERTIES_FILE=/app/opentelemetry.properties
+      - HTTP_PROXY=http://mitmproxy:8088
+      - HTTPS_PROXY=http://mitmproxy:8088
     depends_on:
       postgres:
         condition: service_started
@@ -82,6 +98,8 @@ services:
       # Specify the configuration file location
       - CONFIGURATION_PROPERTIES_FILE=/app/configuration.properties
       - OPENTELEMETRY_PROPERTIES_FILE=/app/opentelemetry.properties
+      - HTTP_PROXY=http://mitmproxy:8088
+      - HTTPS_PROXY=http://mitmproxy:8088
     depends_on:
       postgres:
         condition: service_started
@@ -113,6 +131,8 @@ services:
       # Specify the configuration file location
       - CONFIGURATION_PROPERTIES_FILE=/app/configuration.properties
       - OPENTELEMETRY_PROPERTIES_FILE=/app/opentelemetry.properties
+      - HTTP_PROXY=http://mitmproxy:8088
+      - HTTPS_PROXY=http://mitmproxy:8088
     depends_on:
       postgres:
         condition: service_started
@@ -125,7 +145,6 @@ services:
     dns:
       - 10.232.127.10
       - 10.33.255.23
-
     healthcheck:
       test: wget --no-verbose --tries=1 --spider http://catena-x-controlplane:9191/api/check/health || exit 1
       interval: 40s
@@ -149,6 +168,8 @@ services:
       # Specify the configuration file location
       - CONFIGURATION_PROPERTIES_FILE=/app/configuration.properties
       - OPENTELEMETRY_PROPERTIES_FILE=/app/opentelemetry.properties
+      - HTTP_PROXY=http://mitmproxy:8088
+      - HTTPS_PROXY=http://mitmproxy:8088
     depends_on:
       postgres:
         condition: service_started
@@ -172,6 +193,8 @@ services:
       # Vault configuration
       VAULT_DEV_ROOT_TOKEN_ID: "root-token"
       VAULT_ADDR: "http://127.0.0.1:8200"
+      HTTP_PROXY: "http://mitmproxy:8088"
+      HTTPS_PROXY: "http://mitmproxy:8088"
     cap_add:
       - IPC_LOCK
     networks:
@@ -232,6 +255,8 @@ services:
       - ASSET_ID=edc-chat-app
       - EDC_URL=http://smartsense-controlplane:8192
       - APP_HOST_URL=http://smartsense-backend:8080
+      - HTTP_PROXY=http://mitmproxy:8088
+      - HTTPS_PROXY=http://mitmproxy:8088
     ports:
       - "8182:8080"
     depends_on:
