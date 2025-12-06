@@ -18,7 +18,7 @@ import java.util.Map;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
-@FeignClient(name = "edc", url = "https://legendary-meme-jjj5gpvr57c54g5-8182.app.github.dev")
+@FeignClient(name = "edc", url = "https://urban-space-waddle-q77qx5j74v3696-8182.app.github.dev")
 public interface EDCConnectorClient {
 
     @PostMapping(value = "/management/v3/assets", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)

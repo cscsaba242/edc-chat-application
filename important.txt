@@ -1,0 +1,11 @@
+In case of missing dbs from 'postgres_multi_db' container
+    you have to run manually the 'create_database.sh' in 'postgres_multi_db' container 
+    docker exec -it postgres_multi_db /bin/bash
+
+open ports: 
+ui A: 8280 config 8181
+ui A: 8180 config 8182
+
+
+https://urban-space-waddle-q77qx5j74v3696-5434.app.github.dev/
+https://urban-space-waddle-q77qx5j74v3696
