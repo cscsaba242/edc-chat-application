@@ -1,29 +1,13 @@
 {
 	"name": "EDC Chat Application",
-	"image": "mcr.microsoft.com/devcontainers/java:17",
+	
 	"features": {
-		"ghcr.io/devcontainers/features/java:1": {
-			"version": "17",
-			"jdkDistro": "tem",
-			"installGradle": "true",
-			"gradleVersion": "9.0"
-		},
-		"ghcr.io/devcontainers/features/docker-in-docker:2": {},
-		"ghcr.io/devcontainers/features/node:1": {
-			"version": "lts"
-		}
+	"ghcr.io/devcontainers/features/java:1": {
+	  "version": "17",
+	  "distribution": "temurin"
 	},
-	"customizations": {
-		"vscode": {
-			"extensions": [
-				"vscjava.vscode-java-pack",
-				"vscjava.vscode-gradle",
-				"dbaeumer.vscode-eslint",
-				"esbenp.prettier-vscode"
-			]
-		}
-	},
-	"forwardPorts": [8080, 3000],
-	"postCreateCommand": "java -version && gradle --version",
-	"remoteUser": "vscode"
+	"ghcr.io/devcontainers/features/gradle:1": {
+	  "version": "9"
+	}
+	}
 }
