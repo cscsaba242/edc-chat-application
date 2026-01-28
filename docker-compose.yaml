@@ -12,7 +12,7 @@ services:
       - "8088:8088"   # HTTP Proxy port
       - "8081:8081"   # Web UI (optional)
     #command: mitmweb --web_password 111 --web_host 127.0.0.0 --web_port 8087 --listen_port 8088 -s /home/mitmproxy/.mitmproxy/forward_spec_url.py
-    command: mitmweb --web-host 0.0.0.0 --web-port 8081 --listen-port 8088 --set web_password='mitm' -s /home/mitmproxy/.mitmproxy/forward_spec_url.py
+    command: mitmweb --web-host 0.0.0.0 --web-port 8081 --listen-port 8088  -s /home/mitmproxy/.mitmproxy/forward_spec_url.py
     volumes:
       - ./mitmproxy:/home/mitmproxy/.mitmproxy
     cap_add:
